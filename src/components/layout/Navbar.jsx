@@ -1,22 +1,43 @@
 import React from "react";
-
+import { Link, NavLink } from "react-router-dom";
 function Navbar() {
   return (
     <nav className="navbar bg-dark">
       <h1>
-        <a href="index.html">
+        <Link to="/">
           <i className="fas fa-code"></i> DevTalk
-        </a>
+        </Link>
       </h1>
       <ul>
         <li>
-          <a href="profiles.html">Developers</a>
+          <NavLink
+            to="/profiles"
+            style={({ isActive }) => ({
+              color: isActive ? "#17a2b8" : "white",
+            })}
+          >
+            <span className="nav-link">Developers</span>
+          </NavLink>
         </li>
         <li>
-          <a href="register.html">Register</a>
+          <NavLink
+            to="/register"
+            style={({ isActive }) => ({
+              color: isActive ? "#17a2b8" : "white",
+            })}
+          >
+            <span className="nav-link">Register</span>
+          </NavLink>
         </li>
         <li>
-          <a href="login.html">Login</a>
+          <NavLink
+            to="/login"
+            style={({ isActive }) => ({
+              color: isActive ? "#17a2b8" : "white",
+            })}
+          >
+            <span className="nav-link">Login</span>
+          </NavLink>
         </li>
       </ul>
     </nav>
