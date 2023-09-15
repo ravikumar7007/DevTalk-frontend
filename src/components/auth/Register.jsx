@@ -23,11 +23,7 @@ function Register() {
       dispatch(
         setAlert({ msg: "Password does not same", alertType: "danger", id })
       );
-      setTimeout(() => dispatch(removeAlert(id)), 5000);
-      // setTimeout(() => {
-      //   dispatch(removeAlert());
-      // }, 5000);
-
+      setTimeout(() => dispatch(removeAlert({ id })), 5000);
       console.log("Incorrect Password");
     } else {
       console.log(formData);
