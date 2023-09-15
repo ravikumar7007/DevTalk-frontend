@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setAlert, removeAlert } from "../../reducers/alert/alertSlice";
+import { v4 as uuidv4 } from "uuid";
 
 function Register() {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,6 +19,15 @@ function Register() {
   function handleSubmit(e) {
     e.preventDefault();
     if (password !== password2) {
+      const id = uuidv4();
+      dispatch(
+        setAlert({ msg: "Password does not same", alertType: "danger", id })
+      );
+      setTimeout(() => dispatch(removeAlert(id)), 5000);
+      // setTimeout(() => {
+      //   dispatch(removeAlert());
+      // }, 5000);
+
       console.log("Incorrect Password");
     } else {
       console.log(formData);
