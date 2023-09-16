@@ -9,6 +9,9 @@ import store from "./store";
 import Alert from "./components/layout/Alert";
 
 function App() {
+  
+  
+
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -25,3 +28,4 @@ function App() {
 }
 
 export default App;
+

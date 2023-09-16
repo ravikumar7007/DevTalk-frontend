@@ -11,7 +11,6 @@ const alertSlice = createSlice({
     },
     removeAlert: (state, action) => {
       return state.filter((item) => {
-        console.log(item.id, action.payload.id);
         return item.id !== action.payload.id;
       });
     },
@@ -20,4 +19,3 @@ const alertSlice = createSlice({
 
 export const { setAlert, removeAlert } = alertSlice.actions;
 export default alertSlice.reducer;
-export const renderAlert = (state) => state.alert;

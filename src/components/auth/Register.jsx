@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setAlert, removeAlert } from "../../reducers/alert/alertSlice";
-import { v4 as uuidv4 } from "uuid";
 
+import { regSuccess, regFailed } from "../../reducers/authSlice";
+import { v4 as uuidv4 } from "uuid";
+import { setAlert, removeAlert } from "../../reducers/alertSlice";
+
+import axios from "axios";
 function Register() {
+
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: "",
@@ -16,17 +20,40 @@ function Register() {
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
+function sendAlert(msg, alertType) {   
+      const id = uuidv4();
+      dispatch(setAlert({ msg, alertType, id }));
+      setTimeout(() => dispatch(removeAlert({ id })), 5000);
+    };
+
   function handleSubmit(e) {
     e.preventDefault();
     if (password !== password2) {
-      const id = uuidv4();
-      dispatch(
-        setAlert({ msg: "Password does not same", alertType: "danger", id })
-      );
-      setTimeout(() => dispatch(removeAlert({ id })), 5000);
+      sendAlert("Password does not same", "danger");
+
       console.log("Incorrect Password");
     } else {
-      console.log(formData);
+      const body = JSON.stringify({ name, email, password });
+      axios
+        .post("/api/users", body, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((res)=>{
+          console.log(res.data)
+          dispatch(regSuccess(res.data))
+        }) 
+        .catch((err) => {
+          const errors = err.response.data.errors;
+          console.log(errors);
+          if (errors) {
+            errors.forEach((err) => {
+              sendAlert(err.msg, "danger");
+            });
+          }
+          dispatch(regFailed);
+        });
     }
   }
   return (
@@ -43,7 +70,7 @@ function Register() {
             name="name"
             value={name}
             onChange={handleChange}
-            required
+           
           />
         </div>
         <div className="form-group">
@@ -53,6 +80,7 @@ function Register() {
             name="email"
             value={email}
             onChange={handleChange}
+
           />
           <small className="form-text">
             This site uses Gravatar so if you want a profile image, use a
