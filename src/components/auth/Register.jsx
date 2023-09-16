@@ -1,61 +1,32 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
+import { sendAlert } from "../../actions/alert"; // Correct the path to your action file
+import { register } from "../../actions/auth";
 
-import { regSuccess, regFailed } from "../../reducers/authSlice";
-import { v4 as uuidv4 } from "uuid";
-import { setAlert, removeAlert } from "../../reducers/alertSlice";
-
-import axios from "axios";
-function Register() {
-
-  const dispatch = useDispatch();
+function Register({ sendAlert,register }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     password2: "",
   });
-  const { name, email, password, password2 } = formData;
-  function handleChange(e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
-function sendAlert(msg, alertType) {   
-      const id = uuidv4();
-      dispatch(setAlert({ msg, alertType, id }));
-      setTimeout(() => dispatch(removeAlert({ id })), 5000);
-    };
 
-  function handleSubmit(e) {
+  const { name, email, password, password2 } = formData;
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (password !== password2) {
-      sendAlert("Password does not same", "danger");
-
+      sendAlert({ msg: "Password does not match", alertType: "danger" });
       console.log("Incorrect Password");
     } else {
-      const body = JSON.stringify({ name, email, password });
-      axios
-        .post("/api/users", body, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((res)=>{
-          console.log(res.data)
-          dispatch(regSuccess(res.data))
-        }) 
-        .catch((err) => {
-          const errors = err.response.data.errors;
-          console.log(errors);
-          if (errors) {
-            errors.forEach((err) => {
-              sendAlert(err.msg, "danger");
-            });
-          }
-          dispatch(regFailed);
-        });
+      register({ name, email, password });
     }
-  }
+  };
   return (
     <section className="container">
       <h1 className="large text-primary">Sign Up</h1>
@@ -70,7 +41,6 @@ function sendAlert(msg, alertType) {
             name="name"
             value={name}
             onChange={handleChange}
-           
           />
         </div>
         <div className="form-group">
@@ -80,7 +50,6 @@ function sendAlert(msg, alertType) {
             name="email"
             value={email}
             onChange={handleChange}
-
           />
           <small className="form-text">
             This site uses Gravatar so if you want a profile image, use a
@@ -115,5 +84,11 @@ function sendAlert(msg, alertType) {
     </section>
   );
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    sendAlert: (props) => dispatch(sendAlert(props)),
+    register: (props) => dispatch(register(props)),
+  };
+};
 
-export default Register;
+export default connect(null, mapDispatchToProps)(Register);
