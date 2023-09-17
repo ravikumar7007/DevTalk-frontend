@@ -15,6 +15,7 @@ import { loadUser } from "./actions/auth";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
+    
     const token = localStorage.getItem("token");
     if (token) {
       setAuthToken(token);

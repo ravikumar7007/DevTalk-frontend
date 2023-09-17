@@ -5,6 +5,7 @@ import {
   regFailed,
   userLoaded,
   authError,
+  loggedIn,
 } from "../reducers/authSlice";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -35,7 +36,7 @@ export const register = (formData) => {
       })
       .then((res) => {
         dispatch(regSuccess(res.data));
-        dispatch(loadUser());
+        dispatch(loadUser);
       })
 
       .catch((err) => {
@@ -46,7 +47,35 @@ export const register = (formData) => {
             dispatch(sendAlert({ msg: err.msg, alertType: "danger" }));
           });
         }
-        dispatch(regFailed);
+        dispatch(regFailed());
       });
   };
 };
+
+export const login =((formData)=>{
+  const body=JSON.stringify(formData);
+  return (dispatch) => {
+    axios
+      .post("/api/auth", body, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        dispatch(loggedIn(res.data));
+        dispatch(loadUser);
+      })
+
+      .catch((err) => {
+        const errors = err.response.data.errors;
+
+        if (errors) {
+          errors.forEach((err) => {
+            dispatch(sendAlert({ msg: err.msg, alertType: "danger" }));
+          });
+        }
+        dispatch(authError());
+      });
+  };
+}
+)

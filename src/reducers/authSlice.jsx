@@ -16,33 +16,34 @@ function closeAuth(state, action) {
     user: null,
   };
 }
+
+function getToken(state,action){
+  localStorage.setItem("token", action.payload.token);
+      return {
+        ...state,
+        ...action.payload,
+        isAuthenticated: true,
+        loading: false,
+      }
+}
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     userLoaded: (state, action) => {
-      console.log(action.payload);
       return {
         ...state,
         isAuthenticated: true,
         loading: false,
         user: action.payload,
       };
-     
     },
-    regSuccess: (state, action) => {
-      localStorage.setItem("token", action.payload.token);
-      return {
-        ...state,
-        ...action.payload,
-        isAuthenticated: true,
-        loading: false,
-      };
-    },
+    regSuccess: (state, action) => getToken(state, action),
+    loggedIn:(state,action)=> getToken(state,action),
     regFailed: (state, action) => closeAuth(state, action),
     authError: (state, action) => closeAuth(state, action),
   },
 });
-export const { userLoaded, regSuccess, regFailed, authError } =
+export const { userLoaded, regSuccess,loggedIn, regFailed, authError } =
   authSlice.actions;
 export default authSlice.reducer;

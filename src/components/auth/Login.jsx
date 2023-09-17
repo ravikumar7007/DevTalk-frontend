@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { login } from "../../actions/auth";
 
-function Login() {
+function Login({ login }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -12,15 +14,10 @@ function Login() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    if (!password) {
-      console.log("Incorrect Password");
-    } else {
-      console.log(formData);
-    }
+    login({ email, password });
   }
   return (
     <section className="container">
-      <div className="alert alert-danger">Invalid credentials</div>
       <h1 className="large text-primary">Sign In</h1>
       <p className="lead">
         <i className="fas fa-user"></i> Sign into Your Account
@@ -53,5 +50,10 @@ function Login() {
     </section>
   );
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (props) => dispatch(login(props)),
+  };
+};
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);

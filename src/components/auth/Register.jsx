@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { sendAlert } from "../../actions/alert"; // Correct the path to your action file
 import { register } from "../../actions/auth";
 
-function Register({ sendAlert,register }) {
-  const dispatch=useDispatch()
+function Register({ sendAlert, register }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
