@@ -1,10 +1,29 @@
 import axios from "axios";
 import { sendAlert } from "./alert";
-import { regSuccess, regFailed } from "../reducers/authSlice";
+import {
+  regSuccess,
+  regFailed,
+  userLoaded,
+  authError,
+} from "../reducers/authSlice";
+import setAuthToken from "../utils/setAuthToken";
 
-export const loadUser=async(dispatch)=>{
+export const loadUser = async (dispatch) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    setAuthToken(token);
 
-}
+    try {
+      const res =await axios.get("/api/auth");
+      dispatch(userLoaded(res.data))
+      ;
+    } catch (err) {
+      dispatch(authError())
+    }
+  } else {
+   dispatch(authError());
+  }
+};
 export const register = (formData) => {
   const body = JSON.stringify(formData);
   return (dispatch) => {
@@ -16,7 +35,9 @@ export const register = (formData) => {
       })
       .then((res) => {
         dispatch(regSuccess(res.data));
+        dispatch(loadUser());
       })
+
       .catch((err) => {
         const errors = err.response.data.errors;
 
