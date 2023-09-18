@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate} from "react-router-dom";
 import { connect } from "react-redux";
 import { sendAlert } from "../../actions/alert"; // Correct the path to your action file
 import { register } from "../../actions/auth";
 
-function Register({ sendAlert, register }) {
+function Register({ sendAlert, register,isAuthenticated }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,6 +27,9 @@ function Register({ sendAlert, register }) {
       register({ name, email, password });
     }
   };
+  if(isAuthenticated){
+     return <Navigate to="/dashboard" />
+  }
   return (
     <section className="container">
       <h1 className="large text-primary">Sign Up</h1>
@@ -90,5 +93,7 @@ const mapDispatchToProps = (dispatch) => {
     register: (props) => dispatch(register(props)),
   };
 };
-
-export default connect(null, mapDispatchToProps)(Register);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

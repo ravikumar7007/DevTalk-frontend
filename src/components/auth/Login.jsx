@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { login } from "../../actions/auth";
 
-function Login({ login }) {
+function Login({ login, isAuthenticated }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -15,6 +15,9 @@ function Login({ login }) {
   function handleSubmit(e) {
     e.preventDefault();
     login({ email, password });
+  }
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" />;
   }
   return (
     <section className="container">
@@ -55,5 +58,7 @@ const mapDispatchToProps = (dispatch) => {
     login: (props) => dispatch(login(props)),
   };
 };
-
-export default connect(null, mapDispatchToProps)(Login);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

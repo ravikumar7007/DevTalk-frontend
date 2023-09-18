@@ -19,7 +19,7 @@ function Navbar() {
       </li>
       <li>
         <NavLink
-          to="#!"
+          to="/"
           style={({ isActive }) => ({
             color: isActive ? "#17a2b8" : "white",
           })}
