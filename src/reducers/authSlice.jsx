@@ -33,6 +33,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     userLoaded: (state, action) => {
+      
       return {
         ...state,
         isAuthenticated: true,

@@ -6,8 +6,10 @@ import {
   userLoaded,
   authError,
   loggedIn,
+  loggedOut,
 } from "../reducers/authSlice";
 import setAuthToken from "../utils/setAuthToken";
+import { clearProfile } from "../reducers/profileSlice";
 
 export const loadUser = async (dispatch) => {
   const token = localStorage.getItem("token");
@@ -15,14 +17,13 @@ export const loadUser = async (dispatch) => {
     setAuthToken(token);
 
     try {
-      const res =await axios.get("/api/auth");
-      dispatch(userLoaded(res.data))
-      ;
+      const res = await axios.get("/api/auth");
+      dispatch(userLoaded(res.data));
     } catch (err) {
-      dispatch(authError())
+      dispatch(authError());
     }
   } else {
-   dispatch(authError());
+    dispatch(authError());
   }
 };
 export const register = (formData) => {
@@ -52,8 +53,8 @@ export const register = (formData) => {
   };
 };
 
-export const login =((formData)=>{
-  const body=JSON.stringify(formData);
+export const login = (formData) => {
+  const body = JSON.stringify(formData);
   return (dispatch) => {
     axios
       .post("/api/auth", body, {
@@ -77,5 +78,9 @@ export const login =((formData)=>{
         dispatch(authError());
       });
   };
-}
-)
+};
+
+export const logout = (dispatch) => {
+  dispatch(loggedOut());
+  dispatch(clearProfile());
+};

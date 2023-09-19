@@ -13,18 +13,17 @@ import { useEffect } from "react";
 import { loadUser } from "./actions/auth";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/routing/PrivateRoute";
+import ProfileForm from "./components/profile-forms/ProfileForm";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    
     const token = localStorage.getItem("token");
     if (token) {
       setAuthToken(token);
-    } 
-    dispatch(loadUser)
-    
-  }, [dispatch])
+    }
+    dispatch(loadUser);
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
@@ -34,7 +33,18 @@ function App() {
         <Route exact path="/" element={<Landing />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<PrivateRoute component={<Dashboard />} />} />
+        <Route
+          path="/dashboard"
+          element={<PrivateRoute component={<Dashboard />} />}
+        />
+        <Route
+          path="/create-profile"
+          element={<PrivateRoute component={<ProfileForm />} />}
+        />
+        <Route
+          path="/edit-profile"
+          element={<PrivateRoute component={<ProfileForm />} />}
+        />
       </Routes>
     </BrowserRouter>
   );

@@ -1,7 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
-import { loggedOut } from "../../reducers/authSlice";
+import { logout } from "../../actions/auth";
+
 function Navbar() {
   const { isAuthenticated, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ function Navbar() {
             color: isActive ? "#17a2b8" : "white",
           })}
         >
-          <span className="nav-link" onClick={() => dispatch(loggedOut())}>
+          <span className="nav-link" onClick={() => dispatch(logout)}>
             <i className="fas fa-sign-out-alt"></i>&nbsp;&nbsp;log out
           </span>
         </NavLink>
