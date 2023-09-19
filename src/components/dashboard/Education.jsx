@@ -1,7 +1,9 @@
 import React from "react";
 import Moment from "react-moment";
+import { connect } from "react-redux";
+import { deleteEducation } from "../../actions/profile";
 
-function Education({ education }) {
+function Education({ education, deleteEducation }) {
   return (
     <>
       <h2 className="my-2">education Credentials</h2>
@@ -17,7 +19,7 @@ function Education({ education }) {
         <tbody>
           {education.map((edu) => {
             return (
-              <tr key={edu.id}>
+              <tr key={edu._id}>
                 <td>{edu.school}</td>
                 <td className="hide-sm">{edu.degree}</td>
                 <td className="hide-sm">
@@ -29,7 +31,14 @@ function Education({ education }) {
                   )}{" "}
                 </td>
                 <td>
-                  <button className="btn btn-danger">Delete</button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => {
+                      deleteEducation(edu._id);
+                    }}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             );
@@ -39,5 +48,8 @@ function Education({ education }) {
     </>
   );
 }
+const mapDispatchtoProps = (dispatch) => ({
+  deleteEducation: (id) => dispatch(deleteEducation(id)),
+});
 
-export default Education;
+export default connect(null, mapDispatchtoProps)(Education);

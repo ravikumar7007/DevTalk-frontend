@@ -7,7 +7,6 @@ const initialState = {
   user: null,
 };
 function closeAuth(state, action) {
-
   localStorage.removeItem("token");
   return {
     ...state,
@@ -19,7 +18,6 @@ function closeAuth(state, action) {
 }
 
 function getToken(state, action) {
-
   localStorage.setItem("token", action.payload.token);
   return {
     ...state,
@@ -33,7 +31,6 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     userLoaded: (state, action) => {
-      
       return {
         ...state,
         isAuthenticated: true,
@@ -46,6 +43,7 @@ const authSlice = createSlice({
     regFailed: (state, action) => closeAuth(state, action),
     loggedOut: (state, action) => closeAuth(state, action),
     authError: (state, action) => closeAuth(state, action),
+    accountDeleted: (state, action) => closeAuth(state, action),
   },
 });
 export const {
@@ -55,5 +53,6 @@ export const {
   regFailed,
   loggedOut,
   authError,
+  accountDeleted,
 } = authSlice.actions;
 export default authSlice.reducer;

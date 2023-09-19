@@ -1,7 +1,9 @@
 import React from "react";
 import Moment from "react-moment";
+import { connect } from "react-redux";
+import { deleteExperience } from "../../actions/profile";
 
-function Experience({ experience }) {
+function Experience({ experience, deleteExperience}) {
   return (
     <>
       <h2 className="my-2">Experience Credentials</h2>
@@ -17,7 +19,7 @@ function Experience({ experience }) {
         <tbody>
           {experience.map((exp) => {
             return (
-              <tr key={exp.id}>
+              <tr key={exp._id}>
                 <td>{exp.company}</td>
                 <td className="hide-sm">{exp.title}</td>
                 <td className="hide-sm">
@@ -29,7 +31,14 @@ function Experience({ experience }) {
                   )}{" "}
                 </td>
                 <td>
-                  <button className="btn btn-danger">Delete</button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => {
+                      deleteExperience(exp._id);
+                    }}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             );
@@ -39,5 +48,7 @@ function Experience({ experience }) {
     </>
   );
 }
-
-export default Experience;
+const mapDispatchtoProps = (dispatch) => ({
+  deleteExperience: (id) => dispatch(deleteExperience(id)),
+});
+export default connect(null, mapDispatchtoProps)(Experience);

@@ -23,7 +23,8 @@ const profileSlice = createSlice({
     },
     updateProfile:(state,action)=>{
       return{...state, profile: action.payload, loading: false }
-    }
+    },
+   
   },
 });
 
