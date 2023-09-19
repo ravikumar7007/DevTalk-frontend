@@ -19,13 +19,25 @@ function Navbar() {
       </li>
       <li>
         <NavLink
+          to="/dashboard"
+          style={({ isActive }) => ({
+            color: isActive ? "#17a2b8" : "white",
+          })}
+        >
+          <span className="nav-link">
+            <i className="fas fa-user"></i>&nbsp;&nbsp;Dashboard
+          </span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
           to="/"
           style={({ isActive }) => ({
             color: isActive ? "#17a2b8" : "white",
           })}
         >
-          <span className="nav-link" onClick={()=>dispatch(loggedOut())}>
-            <i className="fas fa-sign-out-alt"></i>log out
+          <span className="nav-link" onClick={() => dispatch(loggedOut())}>
+            <i className="fas fa-sign-out-alt"></i>&nbsp;&nbsp;log out
           </span>
         </NavLink>
       </li>

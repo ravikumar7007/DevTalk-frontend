@@ -1,15 +1,23 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { connect, useSelector } from "react-redux";
 import { getCurrentProfile } from "../../actions/profile";
+import Spinner from "../layout/Spinner";
 
-function Dashboard({getCurrentProfile}) {
-  getCurrentProfile()
-  return <div className="container">Dashboard</div>;
+function Dashboard({ getCurrentProfile }) {
+  const { profile, loading } = useSelector((state) => state.profile);
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
+  return (loading && profile === null) ? (
+    <Spinner />
+  ) : (
+    <div className="container">Dashboard</div>
+  );
 }
-const mapDispatchToProps=(dispatch)=>{
+const mapDispatchToProps = (dispatch) => {
   return {
-    getCurrentProfile:()=>dispatch(getCurrentProfile())
-  }
-}
+    getCurrentProfile: () => dispatch(getCurrentProfile()),
+  };
+};
 
-export default connect(null,mapDispatchToProps)(Dashboard);
+export default connect(null, mapDispatchToProps)(Dashboard);

@@ -13,7 +13,6 @@ const profileSlice = createSlice({
   initialState,
   reducers: {
     getProfile: (state, action) => {
-      console.log("instate");
       return { ...state, profile: action.payload, loading: false };
     },
     profileError: (state, action) => {
@@ -22,5 +21,5 @@ const profileSlice = createSlice({
   },
 });
 
-export const {getProfile,profileError}=profileSlice.actions;
+export const { getProfile, profileError } = profileSlice.actions;
 export default profileSlice.reducer;
