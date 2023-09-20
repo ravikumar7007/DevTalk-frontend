@@ -18,6 +18,7 @@ import Profiles from "./components/profile/Profiles";
 import Profile from "./components/profile-single/Profile";
 import Posts from "./components/posts/Posts";
 import Post from "./components/post-single/Post";
+import NotFound from "./components/layout/NotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ function App() {
           path="/post/:id"
           element={<PrivateRoute component={<Post />} />}
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
