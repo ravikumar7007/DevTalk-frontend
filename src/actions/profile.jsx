@@ -4,6 +4,8 @@ import {
   getProfile,
   profileError,
   updateProfile,
+  getAllProfiles,
+  getRepos,
 } from "../reducers/profileSlice";
 import { sendAlert } from "./alert";
 import { accountDeleted } from "../reducers/authSlice";
@@ -24,6 +26,54 @@ export const getCurrentProfile = () => {
         );
       });
   };
+};
+
+export const getProfiles = () => (dispatch) => {
+  dispatch(clearProfile());
+  axios
+    .get("api/profile")
+    .then((res) => {
+      dispatch(getAllProfiles(res.data));
+    })
+    .catch((err) => {
+      dispatch(
+        profileError({
+          msg: err.response.statusText,
+          status: err.response.status,
+        })
+      );
+    });
+};
+
+export const getProfileById = (id) => (dispatch) => {
+  axios
+    .get(`api/profile/user/${id}`)
+    .then((res) => {
+      dispatch(getProfile(res.data));
+    })
+    .catch((err) => {
+      dispatch(
+        profileError({
+          msg: err.response.statusText,
+          status: err.response.status,
+        })
+      );
+    });
+};
+export const getGithubRepos = (username) => (dispatch) => {
+  axios
+    .get(`api/profile/github/${username}`)
+    .then((res) => {
+      dispatch(getRepos(res.data));
+    })
+    .catch((err) => {
+      dispatch(
+        profileError({
+          msg: err.response.statusText,
+          status: err.response.status,
+        })
+      );
+    });
 };
 
 export const createProfile =
@@ -201,7 +251,7 @@ export const deleteAccount = () => async (dispatch) => {
           alertType: "success",
         })
       );
-      console.log(res)
+      console.log(res);
     } catch (err) {
       dispatch(
         profileError({

@@ -7,17 +7,7 @@ function Navbar() {
   const { isAuthenticated, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const authNav = (
-    <ul>
-      <li>
-        <NavLink
-          to="/profiles"
-          style={({ isActive }) => ({
-            color: isActive ? "#17a2b8" : "white",
-          })}
-        >
-          <span className="nav-link">Developers</span>
-        </NavLink>
-      </li>
+    <>
       <li>
         <NavLink
           to="/dashboard"
@@ -42,10 +32,10 @@ function Navbar() {
           </span>
         </NavLink>
       </li>
-    </ul>
+    </>
   );
   const guestNav = (
-    <ul>
+    <>
       <li>
         <NavLink
           to="/profiles"
@@ -76,7 +66,7 @@ function Navbar() {
           <span className="nav-link">Login</span>
         </NavLink>
       </li>
-    </ul>
+    </>
   );
   return (
     <nav className="navbar bg-dark">
@@ -85,7 +75,19 @@ function Navbar() {
           <i className="fas fa-code"></i> DevTalk
         </Link>
       </h1>
-      {!loading && (isAuthenticated ? authNav : guestNav)}
+      <ul>
+        <li>
+          <NavLink
+            to="/profiles"
+            style={({ isActive }) => ({
+              color: isActive ? "#17a2b8" : "white",
+            })}
+          >
+            <span className="nav-link">DevFriends</span>
+          </NavLink>
+        </li>
+        {!loading && (isAuthenticated ? authNav : guestNav)}
+      </ul>
     </nav>
   );
 }
