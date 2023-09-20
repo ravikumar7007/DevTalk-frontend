@@ -7,7 +7,7 @@ import DashboardActions from "./DashboardActions";
 import Experience from "./Experience";
 import Education from "./Education";
 
-function Dashboard({ getCurrentProfile ,deleteAccount}) {
+function Dashboard({ getCurrentProfile, deleteAccount }) {
   const { profile, loading } = useSelector((state) => state.profile);
   const { user } = useSelector((state) => state.auth);
   useEffect(() => {
@@ -27,7 +27,12 @@ function Dashboard({ getCurrentProfile ,deleteAccount}) {
           <DashboardActions /> <Experience experience={profile.experience} />
           <Education education={profile.education} />
           <div className="my-2">
-            <button className="btn btn-danger" onClick={()=>{deleteAccount()}}>
+            <button
+              className="btn btn-danger"
+              onClick={() => {
+                deleteAccount();
+              }}
+            >
               <i className="fas fa-user-minus"></i>
               {"  "}Delete My Account
             </button>
@@ -49,7 +54,7 @@ function Dashboard({ getCurrentProfile ,deleteAccount}) {
 const mapDispatchToProps = (dispatch) => {
   return {
     getCurrentProfile: () => dispatch(getCurrentProfile()),
-    deleteAccount:()=>dispatch(deleteAccount())
+    deleteAccount: () => dispatch(deleteAccount()),
   };
 };
 

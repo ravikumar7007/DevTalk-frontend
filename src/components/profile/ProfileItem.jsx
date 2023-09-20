@@ -10,7 +10,6 @@ export const ProfileItem = ({
     skills,
   },
 }) => {
- 
   return (
     <div className="profile bg-light" key={_id}>
       <img className="round-img" src={avatar} alt="" />

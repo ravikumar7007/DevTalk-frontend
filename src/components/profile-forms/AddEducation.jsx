@@ -91,13 +91,18 @@ function AddEducation({ addEducation }) {
               Current School or Bootcamp
             </p>
           </div>
-          {current ? (
-            <></>
-          ) : (
-            <div className="form-group">
-              <h4>To Date</h4>
-              <input type="date" name="to" onChange={handleChange} value={to} />
-            </div>
+          {!current && (
+            <>
+              <div className="form-group">
+                <h4>To Date</h4>
+                <input
+                  type="date"
+                  name="to"
+                  onChange={handleChange}
+                  value={to}
+                />
+              </div>
+            </>
           )}
 
           <div className="form-group">

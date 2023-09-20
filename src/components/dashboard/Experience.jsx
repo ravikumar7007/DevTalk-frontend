@@ -3,7 +3,7 @@ import Moment from "react-moment";
 import { connect } from "react-redux";
 import { deleteExperience } from "../../actions/profile";
 
-function Experience({ experience, deleteExperience}) {
+function Experience({ experience, deleteExperience }) {
   return (
     <>
       <h2 className="my-2">Experience Credentials</h2>

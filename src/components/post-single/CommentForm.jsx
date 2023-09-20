@@ -35,7 +35,8 @@ export const CommentForm = ({ postId, addNewComment }) => {
 const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => ({
-  addNewComment: (postId, formData) => dispatch(addNewComment(postId, formData)),
+  addNewComment: (postId, formData) =>
+    dispatch(addNewComment(postId, formData)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentForm);

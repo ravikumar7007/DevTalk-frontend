@@ -46,7 +46,6 @@ export const getProfiles = () => (dispatch) => {
 };
 
 export const getProfileById = (id) => (dispatch) => {
- 
   axios
     .get(`/api/profile/user/${id}`)
     .then((res) => {

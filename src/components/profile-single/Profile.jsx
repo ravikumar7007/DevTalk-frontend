@@ -41,20 +41,28 @@ export const Profile = ({
 
             <div className="profile-exp bg-white p-2">
               <h2 className="text-primary">Experience</h2>
-              {profile.experience.length > 0 ?
+              {profile.experience.length > 0 ? (
                 profile.experience.map((exp) => (
                   <ProfileExperience experience={exp} key={exp._id} />
-                )):<div>No Experience credentials</div>}
+                ))
+              ) : (
+                <div>No Experience credentials</div>
+              )}
             </div>
             <div className="profile-edu bg-white p-2">
               <h2 className="text-primary">Education</h2>
-              {profile.education.length > 0 ?
+              {profile.education.length > 0 ? (
                 profile.education.map((edu) => (
                   <ProfileEduction education={edu} key={edu._id} />
-                )):<div>No Experience credentials</div>}
+                ))
+              ) : (
+                <div>No Experience credentials</div>
+              )}
             </div>
           </div>
-          {profile.githubusername && (<ProfileGithub username={profile.githubusername}/>)}
+          {profile.githubusername && (
+            <ProfileGithub username={profile.githubusername} />
+          )}
         </section>
       )}
     </div>
