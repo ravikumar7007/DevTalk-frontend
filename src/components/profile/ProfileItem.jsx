@@ -10,6 +10,7 @@ export const ProfileItem = ({
     skills,
   },
 }) => {
+ 
   return (
     <div className="profile bg-light" key={_id}>
       <img className="round-img" src={avatar} alt="" />
@@ -21,13 +22,13 @@ export const ProfileItem = ({
         </p>
         <p>{location && <span> {location}</span>}</p>
         <br />
-        <Link to="/profile" className="btn btn-primary">
+        <Link to={`/profile/${_id}`} className="btn btn-primary">
           View Profile
         </Link>
       </div>
 
       <ul>
-        {skills.slice(0,4).map((skill, index) => (
+        {skills.slice(0, 4).map((skill, index) => (
           <li className="text-primary" key={index}>
             <i className="fas fa-check"></i> {skill}
           </li>
