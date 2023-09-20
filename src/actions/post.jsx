@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   addPost,
   deletePost,
+  getPost,
   getPosts,
   postError,
   updateLikes,
@@ -21,10 +22,11 @@ export const getAllPosts = () => async (dispatch) => {
     );
   }
 };
-export const getThePost = () => async (dispatch) => {
+export const getThePost = (postId) => async (dispatch) => {
   try {
-    const res = await axios.get("/api/posts/");
-    dispatch(getPosts(res.data));
+    const res = await axios.get(`/api/posts/${postId}`);
+    
+    dispatch(getPost(res.data));
   } catch (err) {
     dispatch(
       postError({
@@ -100,4 +102,3 @@ export const addNewPost = (formData) => async (dispatch) => {
     );
   }
 };
-

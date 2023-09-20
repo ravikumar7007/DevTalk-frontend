@@ -24,7 +24,7 @@ export const Posts = ({ post: { posts, loading }, getAllPosts }) => {
             <PostForm />
             <div className="posts">
               {posts &&
-                posts.map((post) => <PostItem post={post} key={post._id} />)}
+                posts.map((post) => <PostItem post={post} key={post._id} showAction={true}/>)}
             </div>
           </div>
         </>

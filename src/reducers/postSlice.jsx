@@ -13,13 +13,14 @@ const postSlice = createSlice({
   reducers: {
     getPosts: (state, action) => {
       return { ...state, posts: action.payload, loading: false };
-    },getPost: (state, action) => {
+    },
+    getPost: (state, action) => {
       return { ...state, post: action.payload, loading: false };
     },
     addPost: (state, action) => {
       return {
         ...state,
-        posts: [ action.payload,...state.posts],
+        posts: [action.payload, ...state.posts],
         loading: false,
       };
     },
@@ -43,6 +44,12 @@ const postSlice = createSlice({
   },
 });
 
-export const { getPosts, addPost, deletePost, postError, updateLikes } =
-  postSlice.actions;
+export const {
+  getPosts,
+  getPost,
+  addPost,
+  deletePost,
+  postError,
+  updateLikes,
+} = postSlice.actions;
 export default postSlice.reducer;
