@@ -24,7 +24,6 @@ export const ProfileForm = ({ createProfile }) => {
   const [displaySocial, toggleSocial] = useState(false);
   useEffect(() => {
     setFormData({ ...profile, ...profile.social });
-    console.log(profile.social)
     if (Object.entries(profile.social)) toggleSocial(true);
   }, [profile]);
   const {
