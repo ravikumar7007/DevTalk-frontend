@@ -7,6 +7,7 @@ import ProfileTop from "./ProfileTop";
 import ProfileAbout from "./ProfileAbout";
 import ProfileExperience from "./ProfileExperience";
 import ProfileEduction from "./ProfileEduction";
+import ProfileGithub from "./ProfileGithub";
 
 export const Profile = ({
   profile: { profile, loading },
@@ -53,6 +54,7 @@ export const Profile = ({
                 )):<div>No Experience credentials</div>}
             </div>
           </div>
+          {profile.githubusername && (<ProfileGithub username={profile.githubusername}/>)}
         </section>
       )}
     </div>

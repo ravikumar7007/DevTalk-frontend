@@ -63,7 +63,7 @@ export const getProfileById = (id) => (dispatch) => {
 };
 export const getGithubRepos = (username) => (dispatch) => {
   axios
-    .get(`api/profile/github/${username}`)
+    .get(`/api/profile/github/${username}`)
     .then((res) => {
       dispatch(getRepos(res.data));
     })
