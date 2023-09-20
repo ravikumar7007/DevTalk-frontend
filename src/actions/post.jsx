@@ -5,7 +5,9 @@ import {
   getPost,
   getPosts,
   postError,
-  updateLikes,addComment,deleteComment
+  updateLikes,
+  addComment,
+  deleteComment,
 } from "../reducers/postSlice";
 import { sendAlert } from "./alert";
 
@@ -103,9 +105,9 @@ export const addNewPost = (formData) => async (dispatch) => {
   }
 };
 
-export const removeComment = (postId,commentId) => async (dispatch) => {
+export const removeComment = (postId, commentId) => async (dispatch) => {
   try {
-    const res = await axios.delete(`/api/posts/${postId}/${commentId}`);
+    const res = await axios.delete(`/api/posts/comment/${postId}/${commentId}`);
     dispatch(deleteComment(res.data));
     dispatch(sendAlert({ msg: "Comment Deleted", alertType: "success" }));
   } catch (err) {
@@ -118,7 +120,7 @@ export const removeComment = (postId,commentId) => async (dispatch) => {
   }
 };
 
-export const addNewComment = (postId,formData) => async (dispatch) => {
+export const addNewComment = (postId, formData) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -128,7 +130,11 @@ export const addNewComment = (postId,formData) => async (dispatch) => {
   const sendData = JSON.stringify(formData);
 
   try {
-    const res = await axios.post(`/api/posts/${postId}`, sendData, config);
+    const res = await axios.post(
+      `/api/posts/comment/${postId}`,
+      sendData,
+      config
+    );
     dispatch(addComment(res.data));
     dispatch(sendAlert({ msg: "Comment Added", alertType: "success" }));
   } catch (err) {

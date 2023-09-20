@@ -42,11 +42,11 @@ const postSlice = createSlice({
       state.posts = updatedPosts;
     },
     addComment: (state, action) => {
-      state.post.comment = action.payload;
+      state.post.comments = action.payload;
       state.loading = false;
     },
     removeComment: (state, action) => {
-      state.post.comment = action.payload;
+      state.post.comments = action.payload;
       state.loading = false;
     },
   },

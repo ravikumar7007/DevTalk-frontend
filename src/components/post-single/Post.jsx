@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { getThePost } from "../../actions/post";
 import Spinner from "../layout/Spinner";
 import PostItem from "../posts/PostItem";
+import PostForm from "./PostForm";
 
 export const Post = ({ getThePost, post: { post, loading } }) => {
   const { id } = useParams();
@@ -20,28 +21,10 @@ export const Post = ({ getThePost, post: { post, loading } }) => {
           <Link to="/posts" className="btn">
             Back To Posts
           </Link>
-          <PostItem post={post} showAction={false}/>
-          
 
-          <div className="post-form">
-            <div className="bg-primary p">
-              <h3>Leave A Comment</h3>
-            </div>
-            <form className="form my-1">
-              <textarea
-                name="text"
-                cols="30"
-                rows="5"
-                placeholder="Comment on this post"
-                required
-              ></textarea>
-              <input
-                type="submit"
-                className="btn btn-dark my-1"
-                value="Submit"
-              />
-            </form>
-          </div>
+          <PostItem post={post} showAction={false} />
+
+          <PostForm postId={id} />
 
           <div className="comments">
             <div className="post bg-white p-1 my-1">
