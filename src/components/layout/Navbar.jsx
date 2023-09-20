@@ -48,16 +48,6 @@ function Navbar() {
     <>
       <li>
         <NavLink
-          to="/profiles"
-          style={({ isActive }) => ({
-            color: isActive ? "#17a2b8" : "white",
-          })}
-        >
-          <span className="nav-link">Developers</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
           to="/register"
           style={({ isActive }) => ({
             color: isActive ? "#17a2b8" : "white",
