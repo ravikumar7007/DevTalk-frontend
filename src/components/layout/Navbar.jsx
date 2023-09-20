@@ -10,6 +10,16 @@ function Navbar() {
     <>
       <li>
         <NavLink
+          to="/posts"
+          style={({ isActive }) => ({
+            color: isActive ? "#17a2b8" : "white",
+          })}
+        >
+          <span className="nav-link">&nbsp;&nbsp;Posts</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
           to="/dashboard"
           style={({ isActive }) => ({
             color: isActive ? "#17a2b8" : "white",
