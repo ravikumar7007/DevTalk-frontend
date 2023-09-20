@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { addNewComment } from "../../actions/post";
 
-export const PostForm = ({ postId, addNewComment }) => {
+export const CommentForm = ({ postId, addNewComment }) => {
   const [comment, setComment] = useState({ text: "" });
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,4 +38,4 @@ const mapDispatchToProps = (dispatch) => ({
   addNewComment: (postId, formData) => dispatch(addNewComment(postId, formData)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
+export default connect(mapStateToProps, mapDispatchToProps)(CommentForm);

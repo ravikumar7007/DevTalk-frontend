@@ -45,7 +45,7 @@ const postSlice = createSlice({
       state.post.comments = action.payload;
       state.loading = false;
     },
-    removeComment: (state, action) => {
+    deleteComment: (state, action) => {
       state.post.comments = action.payload;
       state.loading = false;
     },
